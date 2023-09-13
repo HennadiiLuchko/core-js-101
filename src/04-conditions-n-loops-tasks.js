@@ -179,8 +179,16 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const store = str.split('').reduce((acc, cur) => {
+    if (!acc[cur]) {
+      acc[cur] = 1;
+    } else {
+      acc[cur] += 1;
+    }
+    return acc;
+  }, {});
+  return Object.keys(store).filter((key) => store[key] === 1)[0];
 }
 
 
@@ -268,6 +276,17 @@ function reverseInteger(num) {
  */
 function isCreditCardNumber(/* ccn */) {
   throw new Error('Not implemented');
+  // let sum = 0;
+  // const arr = ccn.toString().split('');
+  // for (let i = 1; i < arr.length; i += 2) {
+  //   arr[i] *= 2;
+  //   if (arr[i] > 9) {
+  //     arr[i] -= 9;
+  //   }
+  //   sum += arr[i];
+  // }
+  // if (sum % 10 === 0) return true;
+  // return false;
 }
 
 /**
@@ -345,8 +364,8 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
