@@ -213,8 +213,9 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const result = (''.concat(''.concat(`┌${'─'.repeat(width - 2)}┐\n`, `│${' '.repeat(width - 2)}│\n`.repeat(height - 2)), `└${'─'.repeat(width - 2)}┘\n`));
+  return result;
 }
 
 
@@ -234,8 +235,15 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    let chCode = str[i].charCodeAt(0);
+    if ((chCode >= 65 && chCode < 78) || (chCode >= 97 && chCode < 110)) chCode += 13;
+    else if ((chCode >= 78 && chCode <= 90) || (chCode >= 110 && chCode <= 122)) chCode -= 13;
+    result += String.fromCharCode(chCode);
+  }
+  return result;
 }
 
 /**
