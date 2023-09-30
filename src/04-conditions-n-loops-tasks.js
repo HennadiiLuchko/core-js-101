@@ -395,8 +395,23 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let result = '';
+
+  const pathesSort = pathes.map((el) => el.slice(0, el.lastIndexOf('/') + 1)).sort((a, b) => a.length - b.length);
+
+  for (let i = 0; i < pathesSort[0].length; i += 1) {
+    let part = pathesSort[0][i];
+    for (let j = 1; j < pathesSort.length; j += 1) {
+      if (part !== pathesSort[j][i]) {
+        part = '';
+        break;
+      }
+    }
+    if (part === '') break;
+    result += part;
+  }
+  return result.slice(0, result.lastIndexOf('/') + 1);
 }
 
 
@@ -453,8 +468,45 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < 3; i += 1) {
+    if (
+      position[i][0] === position[i][1]
+      && position[i][1] === position[i][2]
+    ) {
+      if (position[i][0] === 'X') {
+        return 'X';
+      } if (position[i][0] === '0') {
+        return '0';
+      }
+    }
+  }
+
+  for (let i = 0; i < 3; i += 1) {
+    if (
+      position[0][i] === position[1][i]
+      && position[1][i] === position[2][i]
+    ) {
+      if (position[0][i] === 'X') {
+        return 'X';
+      } if (position[0][i] === '0') {
+        return '0';
+      }
+    }
+  }
+
+  if (
+    (position[0][0] === position[1][1] && position[1][1] === position[2][2])
+    || (position[0][2] === position[1][1] && position[1][1] === position[2][0])
+  ) {
+    if (position[1][1] === 'X') {
+      return 'X';
+    } if (position[1][1] === '0') {
+      return '0';
+    }
+  }
+
+  return undefined;
 }
 
 
